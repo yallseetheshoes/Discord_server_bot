@@ -1,18 +1,9 @@
 import discord
 from discord.ext import commands, tasks
-import json
 import socket
 import os
 
-
 bot = commands.Bot(command_prefix='!',intents=discord.Intents.none())
-
-# load channel id from json file
-with open("data.json") as f: 
-    channel_id = json.load(f)["channel_id"]
-
-
-
 
 # get bot token from env variable
 def get_token():
@@ -35,7 +26,6 @@ def is_online(host="127.0.0.1", port=25565):
 # print when bot is ready
 @bot.event
 async def on_ready():
-    infochannel = await bot.fetch_channel(channel_id)
     check_server_status.start()
     #await infochannel.send(f"Server status: {is_online()}")
     print(f'Logged in as {bot.user}!')
